@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Array Methods – map & filter</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        code {
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #fff;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background: #ecf0f1;
+        }
+        .note {
+            background: #fff3cd;
+            padding: 10px;
+            border-left: 5px solid #f1c40f;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>JavaScript Array Methods: map() & filter()</h1>
+
+    <!-- MAP -->
+    <h2>🔹 map()</h2>
+    <p>
+        <strong>map()</strong> is an array method that creates a <strong>new array</strong>
+        by applying a callback function to each element.
+    </p>
+
+    <pre>
+Key Points:
+• Does NOT modify the original array
+• Always returns a new array
+• Output length = input length
+• map() is NOT async
+• Callback runs once per element
+    </pre>
+
+    <h3>Syntax</h3>
+    <pre>
+array.map((element, index, array) => {
+    return newValue;
+});
+    </pre>
+
+    <h3>Callback Parameters</h3>
+    <pre>
+element → current item
+index   → position (optional)
+array   → original array (optional)
+    </pre>
+
+    <div class="note">
+        ⚠️ <strong>Important Rule:</strong><br>
+        map() MUST return something.<br>
+        If you don’t return → <code>undefined</code> is added to the new array.
+    </div>
+
+    <h3>map() vs forEach()</h3>
+    <table>
+        <tr>
+            <th>Feature</th>
+            <th>map()</th>
+            <th>forEach()</th>
+        </tr>
+        <tr>
+            <td>Returns new array</td>
+            <td>✅ Yes</td>
+            <td>❌ No</td>
+        </tr>
+        <tr>
+            <td>Used for transformation</td>
+            <td>✅ Yes</td>
+            <td>❌ No</td>
+        </tr>
+        <tr>
+            <td>Can be chained</td>
+            <td>✅ Yes</td>
+            <td>❌ No</td>
+        </tr>
+        <tr>
+            <td>Mutates original</td>
+            <td>❌ No</td>
+            <td>❌ No</td>
+        </tr>
+    </table>
+
+    <p>
+        <strong>Why map() is NOT called filter()?</strong><br><br>
+        map() asks → <em>“What should each element become?”</em><br>
+        filter() asks → <em>“Should this element stay or go?”</em>
+    </p>
+
+    <hr>
+
+    <!-- FILTER -->
+    <h2>🔹 filter()</h2>
+    <p>
+        <strong>filter()</strong> creates a new array containing only elements
+        that satisfy a given condition.
+    </p>
+
+    <pre>
+Key Points:
+• Does NOT modify original array
+• Callback must return true or false
+• Output length ≤ input length
+    </pre>
+
+    <h3>Syntax</h3>
+    <pre>
+array.filter((element, index, array) => {
+    return condition; // true or false
+});
+    </pre>
+
+    <div class="note">
+        🚨 <strong>Core Rule:</strong><br>
+        true  → element is kept<br>
+        false → element is removed
+    </div>
+
+    <h3>filter() vs map()</h3>
+    <table>
+        <tr>
+            <th>Feature</th>
+            <th>filter()</th>
+            <th>map()</th>
+        </tr>
+        <tr>
+            <td>Purpose</td>
+            <td>Select elements</td>
+            <td>Transform elements</td>
+        </tr>
+        <tr>
+            <td>Removes elements</td>
+            <td>✅ Yes</td>
+            <td>❌ No</td>
+        </tr>
+        <tr>
+            <td>Changes value</td>
+            <td>❌ No</td>
+            <td>✅ Yes</td>
+        </tr>
+        <tr>
+            <td>Callback returns</td>
+            <td>Boolean</td>
+            <td>Value</td>
+        </tr>
+    </table>
+
+    <p>
+        <strong>Mutation:</strong> Changing the original data directly.<br>
+        Both <code>map()</code> and <code>filter()</code> are <strong>non-mutating</strong>.
+    </p>
+
+    <hr>
+
+    <!-- CHAINING -->
+    <h2>🔹 Chaining (filter + map)</h2>
+    <pre>
+students
+  .filter(student => student.age >= 25)
+  .map(student => student.name);
+    </pre>
+
+    <p>
+        ✔ First filter the data<br>
+        ✔ Then transform it<br>
+        ✔ Very common in real-world code
+    </p>
+
+    <!-- JS FILE -->
+    <script src="00_Demo.js"></script>
+
+</body>
+</html>
