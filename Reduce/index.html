@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Array Method – reduce()</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        code {
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #fff;
+            padding: 15px;
+            border-left: 5px solid #9b59b6;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background: #ecf0f1;
+        }
+        .note {
+            background: #fff3cd;
+            padding: 10px;
+            border-left: 5px solid #f1c40f;
+            margin: 15px 0;
+        }
+        .danger {
+            background: #fdecea;
+            padding: 10px;
+            border-left: 5px solid #e74c3c;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>JavaScript Array Method: reduce()</h1>
+
+    <!-- INTRO -->
+    <h2>🔹 reduce()</h2>
+    <p>
+        <strong>reduce()</strong> is an array method used to
+        <strong>reduce all elements of an array into a single value</strong>.
+    </p>
+
+    <pre>
+Key Points:
+• Does NOT modify the original array
+• Returns ONE final value
+• Can return number, string, object, or array
+• Runs callback once per element
+• Most powerful (and confusing) array method
+    </pre>
+
+    <hr>
+
+    <!-- SYNTAX -->
+    <h2>🔹 Syntax</h2>
+    <pre>
+array.reduce((accumulator, currentValue, index, array) => {
+    return updatedAccumulator;
+}, initialValue);
+    </pre>
+
+    <h3>Callback Parameters</h3>
+    <pre>
+accumulator   → result so far
+currentValue → current element
+index        → position (optional)
+array        → original array (optional)
+initialValue → starting value of accumulator
+    </pre>
+
+    <div class="note">
+        ⚠️ <strong>Golden Rule:</strong><br>
+        Whatever you <code>return</code> becomes the next accumulator.
+    </div>
+
+    <hr>
+
+    <!-- BASIC EXAMPLE -->
+    <h2>🔹 Example: Sum of Numbers</h2>
+    <pre>
+const nums = [1, 2, 3, 4];
+
+const sum = nums.reduce((acc, curr) => {
+    return acc + curr;
+}, 0);
+
+console.log(sum); // 10
+    </pre>
+
+    <h3>Flow Explanation</h3>
+    <table>
+        <tr>
+            <th>acc</th>
+            <th>curr</th>
+            <th>return</th>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>3</td>
+            <td>6</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>4</td>
+            <td>10</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <!-- INITIAL VALUE -->
+    <h2>🔹 initialValue (VERY IMPORTANT)</h2>
+    <pre>
+nums.reduce((acc, curr) => acc + curr);
+    </pre>
+
+    <div class="danger">
+        🚨 <strong>Why this is risky:</strong><br>
+        • First element becomes accumulator<br>
+        • Fails on empty array<br>
+        • Can cause unexpected bugs
+    </div>
+
+    <p>
+        ✅ <strong>Best Practice:</strong> Always pass <code>initialValue</code>.
+    </p>
+
+    <hr>
+
+    <!-- OBJECT USE -->
+    <h2>🔹 reduce() to Create an Object</h2>
+    <pre>
+const fruits = ["apple", "banana", "apple"];
+
+const count = fruits.reduce((acc, curr) => {
+    acc[curr] = (acc[curr] || 0) + 1;
+    return acc;
+}, {});
+
+console.log(count);
+// { apple: 2, banana: 1 }
+    </pre>
+
+    <div class="note">
+        🧠 Here accumulator is an <strong>object</strong>, not a number.
+    </div>
+
+    <hr>
+
+    <!-- ARRAY USE -->
+    <h2>🔹 reduce() to Create an Array</h2>
+    <pre>
+const nums = [1, 2, 3];
+
+const doubled = nums.reduce((acc, curr) => {
+    acc.push(curr * 2);
+    return acc;
+}, []);
+
+console.log(doubled); // [2, 4, 6]
+    </pre>
+
+    <hr>
+
+    <!-- MUTABILITY -->
+    <h2>🔹 Mutability Rule</h2>
+    <p>
+        <strong>reduce()</strong> itself is <strong>non-mutating</strong>.
+    </p>
+
+    <pre>
+students.reduce((acc, curr) => {
+    acc.push(curr); // mutating accumulator
+    return acc;
+}, []);
+    </pre>
+
+    <div class="note">
+        ⚠️ Mutating the accumulator is allowed.<br>
+        Original array still remains unchanged.
+    </div>
+
+    <hr>
+
+    <!-- COMPARISON -->
+    <h2>🔹 map() vs filter() vs reduce()</h2>
+    <table>
+        <tr>
+            <th>Feature</th>
+            <th>map()</th>
+            <th>filter()</th>
+            <th>reduce()</th>
+        </tr>
+        <tr>
+            <td>Purpose</td>
+            <td>Transform</td>
+            <td>Select</td>
+            <td>Combine</td>
+        </tr>
+        <tr>
+            <td>Returns</td>
+            <td>New Array</td>
+            <td>New Array</td>
+            <td>Any Value</td>
+        </tr>
+        <tr>
+            <td>Output Size</td>
+            <td>Same</td>
+            <td>≤ Input</td>
+            <td>Single</td>
+        </tr>
+        <tr>
+            <td>Most Flexible</td>
+            <td>❌</td>
+            <td>❌</td>
+            <td>✅</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <!-- WHEN TO USE -->
+    <h2>🔹 When Should You Use reduce()?</h2>
+    <pre>
+✔ Sum / Product
+✔ Max / Min
+✔ Grouping data
+✔ Counting frequency
+✔ Creating objects or arrays
+    </pre>
+
+    <div class="danger">
+        ❌ Don’t use reduce just to replace map or filter.<br>
+        It hurts readability.
+    </div>
+
+    <!-- JS FILE -->
+    <script src="script.js"></script>
+
+</body>
+</html>
