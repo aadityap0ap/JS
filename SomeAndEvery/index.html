@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Array Methods – some() & every()</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        code {
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #fff;
+            padding: 15px;
+            border-left: 5px solid #27ae60;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background: #ecf0f1;
+        }
+        .note {
+            background: #fff3cd;
+            padding: 10px;
+            border-left: 5px solid #f1c40f;
+            margin: 15px 0;
+        }
+        .danger {
+            background: #fdecea;
+            padding: 10px;
+            border-left: 5px solid #e74c3c;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>JavaScript Array Methods: some() & every()</h1>
+
+<!-- INTRO -->
+<h2>🔹 What are some() and every()?</h2>
+<p>
+    <strong>some()</strong> and <strong>every()</strong> are array methods used to
+    <strong>check conditions</strong> on array elements.
+</p>
+
+<pre>
+• They DO NOT return arrays
+• They return BOOLEAN values (true / false)
+• They DO NOT modify the original array
+• They stop early (short-circuiting)
+</pre>
+
+<hr>
+
+<!-- SOME -->
+<h2>🔹 some()</h2>
+<p>
+    <strong>some()</strong> checks whether
+    <strong>AT LEAST ONE element</strong> in the array satisfies a condition.
+</p>
+
+<pre>
+Mental Question some() asks:
+👉 "Is there ANY element that passes this condition?"
+</pre>
+
+<h3>Syntax</h3>
+<pre>
+array.some((element, index, array) => {
+    return condition; // true or false
+});
+</pre>
+
+<h3>Example: Any even number?</h3>
+<pre>
+const nums = [1, 3, 5, 8];
+
+const hasEven = nums.some(num => num % 2 === 0);
+
+console.log(hasEven); // true
+</pre>
+
+<h3>Execution Flow</h3>
+<table>
+    <tr>
+        <th>Element</th>
+        <th>Condition</th>
+        <th>Result</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>false</td>
+        <td>Continue</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>false</td>
+        <td>Continue</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>false</td>
+        <td>Continue</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>true</td>
+        <td>STOP → return true</td>
+    </tr>
+</table>
+
+<div class="note">
+    ✅ some() stops as soon as it finds ONE match.
+</div>
+
+<hr>
+
+<!-- EVERY -->
+<h2>🔹 every()</h2>
+<p>
+    <strong>every()</strong> checks whether
+    <strong>ALL elements</strong> satisfy a condition.
+</p>
+
+<pre>
+Mental Question every() asks:
+👉 "Do ALL elements pass this condition?"
+</pre>
+
+<h3>Syntax</h3>
+<pre>
+array.every((element, index, array) => {
+    return condition; // true or false
+});
+</pre>
+
+<h3>Example: All numbers positive?</h3>
+<pre>
+const nums = [2, 4, 6, 8];
+
+const allPositive = nums.every(num => num > 0);
+
+console.log(allPositive); // true
+</pre>
+
+<h3>Failure Case</h3>
+<pre>
+const nums = [2, 4, -1, 8];
+
+nums.every(num => num > 0); // false
+</pre>
+
+<div class="note">
+    ❌ every() stops on FIRST failure.
+</div>
+
+<hr>
+
+<!-- LOGIC -->
+<h2>🔹 Logical Comparison</h2>
+<table>
+    <tr>
+        <th>Method</th>
+        <th>Logic</th>
+    </tr>
+    <tr>
+        <td>some()</td>
+        <td>OR (||)</td>
+    </tr>
+    <tr>
+        <td>every()</td>
+        <td>AND (&&)</td>
+    </tr>
+</table>
+
+<pre>
+some()  → a || b || c
+every() → a && b && c
+</pre>
+
+<hr>
+
+<!-- EMPTY ARRAY -->
+<h2>🔹 Empty Array Edge Case (IMPORTANT ⚠️)</h2>
+<pre>
+[].some(x => x > 0);   // false
+[].every(x => x > 0); // true
+</pre>
+
+<div class="danger">
+    🚨 Why this happens?<br>
+    • some(): "Is there at least one?" → NO → false<br>
+    • every(): "Did all pass?" → technically YES
+</div>
+
+<hr>
+
+<!-- REAL WORLD -->
+<h2>🔹 Real-World Use Cases</h2>
+
+<h3>Check if any user is admin</h3>
+<pre>
+users.some(user => user.role === "admin");
+</pre>
+
+<h3>Check if all form inputs are filled</h3>
+<pre>
+inputs.every(input => input.value !== "");
+</pre>
+
+<h3>Check if any product is out of stock</h3>
+<pre>
+products.some(p => p.stock === 0);
+</pre>
+
+<hr>
+
+<!-- COMPARISON -->
+<h2>🔹 some() vs every() vs filter()</h2>
+<table>
+    <tr>
+        <th>Feature</th>
+        <th>some()</th>
+        <th>every()</th>
+        <th>filter()</th>
+    </tr>
+    <tr>
+        <td>Returns</td>
+        <td>Boolean</td>
+        <td>Boolean</td>
+        <td>Array</td>
+    </tr>
+    <tr>
+        <td>Stops Early</td>
+        <td>✅</td>
+        <td>✅</td>
+        <td>❌</td>
+    </tr>
+    <tr>
+        <td>Used for Checking</td>
+        <td>✅</td>
+        <td>✅</td>
+        <td>❌</td>
+    </tr>
+</table>
+
+<div class="danger">
+    ❌ Avoid this:
+    <pre>
+arr.filter(x => x > 10).length > 0;
+    </pre>
+
+    ✅ Use this:
+    <pre>
+arr.some(x => x > 10);
+    </pre>
+</div>
+
+<hr>
+
+<!-- MUTATION -->
+<h2>🔹 Mutability</h2>
+<p>
+    <strong>some()</strong> and <strong>every()</strong> are
+    <strong>non-mutating</strong> methods.
+</p>
+
+<pre>
+Original array remains unchanged.
+</pre>
+
+<hr>
+
+<!-- SUMMARY -->
+<h2>🔹 Final Summary</h2>
+<pre>
+some()  → at least ONE passes → true / false
+every() → ALL must pass      → true / false
+
+• Cleaner than loops
+• Faster than filter().length
+• Very common in real projects
+• Loved by interviewers
+</pre>
+
+<script src="02_some_every_demo.js"></script>
+
+</body>
+</html>
