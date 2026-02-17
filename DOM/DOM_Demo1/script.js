@@ -1,0 +1,1 @@
+document.body.children[3].src = 'https://images.news18.com/ibnlive/uploads/2025/03/Rohit-Sharma-Champions-Trophy-Shoot-X-Feature-2025-03-f9a38be86289fd137063688fbd604bff-16x9.png?impolicy=website&width=640&height=360'
