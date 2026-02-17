@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript DOM – Complete Revision</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.7;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        code {
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        pre {
+            background: #fff;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background: #ecf0f1;
+        }
+        .note {
+            background: #fff3cd;
+            padding: 10px;
+            border-left: 5px solid #f1c40f;
+            margin: 15px 0;
+        }
+        .danger {
+            background: #fdecea;
+            padding: 10px;
+            border-left: 5px solid #e74c3c;
+            margin: 15px 0;
+        }
+        hr {
+            margin: 40px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>📘 JavaScript DOM – Complete Revision (Basic → Advanced)</h1>
+
+<hr>
+
+<!-- DOM -->
+<h2>🔹 What is DOM?</h2>
+<p>
+    <strong>DOM (Document Object Model)</strong> is a tree-like structure created by the browser
+    that represents the HTML document.
+</p>
+
+<pre>
+• HTML → converted into objects
+• JavaScript can read / modify HTML using DOM
+• Everything becomes a NODE
+</pre>
+
+<hr>
+
+<!-- SELECTING ELEMENTS -->
+<h2>🔹 Selecting Elements in JavaScript</h2>
+
+<table>
+    <tr>
+        <th>Method</th>
+        <th>Returns</th>
+        <th>Notes</th>
+    </tr>
+    <tr>
+        <td>getElementById</td>
+        <td>Single element</td>
+        <td>Fastest, unique</td>
+    </tr>
+    <tr>
+        <td>getElementsByClassName</td>
+        <td>HTMLCollection</td>
+        <td>Live</td>
+    </tr>
+    <tr>
+        <td>getElementsByTagName</td>
+        <td>HTMLCollection</td>
+        <td>Live</td>
+    </tr>
+    <tr>
+        <td>querySelector</td>
+        <td>First match</td>
+        <td>CSS selector</td>
+    </tr>
+    <tr>
+        <td>querySelectorAll</td>
+        <td>NodeList</td>
+        <td>Static</td>
+    </tr>
+</table>
+
+<pre>
+document.getElementById("box");
+document.querySelector(".item");
+document.querySelectorAll("li");
+</pre>
+
+<hr>
+
+<!-- INNER TEXT VS TEXT CONTENT -->
+<h2>🔹 innerText vs textContent</h2>
+
+<table>
+    <tr>
+        <th>Feature</th>
+        <th>innerText</th>
+        <th>textContent</th>
+    </tr>
+    <tr>
+        <td>Hidden text</td>
+        <td>❌ Ignored</td>
+        <td>✅ Included</td>
+    </tr>
+    <tr>
+        <td>Performance</td>
+        <td>Slower</td>
+        <td>Faster</td>
+    </tr>
+    <tr>
+        <td>Formatting</td>
+        <td>Respects CSS</td>
+        <td>Raw text</td>
+    </tr>
+</table>
+
+<pre>
+element.innerText = "Hello";
+element.textContent = "Hello";
+</pre>
+
+<hr>
+
+<!-- ATTRIBUTES -->
+<h2>🔹 Get & Set Attributes</h2>
+
+<pre>
+element.getAttribute("href");
+element.setAttribute("id", "box");
+element.removeAttribute("disabled");
+</pre>
+
+<div class="note">
+    ⚠️ Prefer properties for common attributes like <code>value</code>, <code>checked</code>
+</div>
+
+<hr>
+
+<!-- STYLES -->
+<h2>🔹 Applying Styles in JavaScript</h2>
+
+<h3>Inline styles</h3>
+<pre>
+div.style.color = "red";
+div.style.backgroundColor = "yellow";
+</pre>
+
+<h3>Best Practice (recommended)</h3>
+<pre>
+div.classList.add("active");
+div.classList.remove("hidden");
+div.classList.toggle("dark");
+</pre>
+
+<hr>
+
+<!-- DOM TRAVERSAL -->
+<h2>🔹 Accessing Parent, Children & Siblings</h2>
+
+<pre>
+element.parentElement
+element.children
+element.firstElementChild
+element.lastElementChild
+element.nextElementSibling
+element.previousElementSibling
+</pre>
+
+<div class="note">
+    ❗ Avoid <code>childNodes</code> unless you need text nodes
+</div>
+
+<hr>
+
+<!-- NODE VS ELEMENT -->
+<h2>🔹 Node vs Element</h2>
+
+<table>
+    <tr>
+        <th>Node</th>
+        <th>Element</th>
+    </tr>
+    <tr>
+        <td>Everything in DOM</td>
+        <td>Only HTML tags</td>
+    </tr>
+    <tr>
+        <td>Includes text, comments</td>
+        <td>No text nodes</td>
+    </tr>
+</table>
+
+<pre>
+All elements are nodes
+Not all nodes are elements
+</pre>
+
+<hr>
+
+<!-- APPEND -->
+<h2>🔹 append() vs appendChild()</h2>
+
+<table>
+    <tr>
+        <th>Feature</th>
+        <th>append()</th>
+        <th>appendChild()</th>
+    </tr>
+    <tr>
+        <td>Accepts strings</td>
+        <td>✅</td>
+        <td>❌</td>
+    </tr>
+    <tr>
+        <td>Multiple items</td>
+        <td>✅</td>
+        <td>❌</td>
+    </tr>
+    <tr>
+        <td>Return value</td>
+        <td>undefined</td>
+        <td>Node</td>
+    </tr>
+</table>
+
+<pre>
+parent.append("Hello", span);
+parent.appendChild(div);
+</pre>
+
+<hr>
+
+<!-- CREATE & REMOVE -->
+<h2>🔹 Creating & Removing Elements</h2>
+
+<h3>Create</h3>
+<pre>
+const div = document.createElement("div");
+div.innerText = "Hello";
+document.body.append(div);
+</pre>
+
+<h3>Remove</h3>
+<pre>
+element.remove();
+parent.removeChild(child);
+</pre>
+
+<hr>
+
+<!-- EVENT LISTENERS -->
+<h2>🔹 Event Listeners (In Depth)</h2>
+
+<pre>
+element.addEventListener("click", function () {
+    console.log("Clicked");
+});
+</pre>
+
+<h3>Event Object</h3>
+<pre>
+event.target
+event.type
+event.preventDefault()
+event.stopPropagation()
+</pre>
+
+<h3>Event Bubbling</h3>
+<pre>
+child → parent → document
+</pre>
+
+<h3>Event Delegation (IMPORTANT)</h3>
+<pre>
+ul.addEventListener("click", e => {
+    if (e.target.tagName === "LI") {
+        console.log(e.target.innerText);
+    }
+});
+</pre>
+
+<hr>
+
+<!-- EVENT TYPES -->
+<h2>🔹 Types of Events</h2>
+
+<table>
+    <tr>
+        <th>Category</th>
+        <th>Examples</th>
+    </tr>
+    <tr>
+        <td>Mouse</td>
+        <td>click, dblclick, mouseover</td>
+    </tr>
+    <tr>
+        <td>Keyboard</td>
+        <td>keydown, keyup</td>
+    </tr>
+    <tr>
+        <td>Form</td>
+        <td>submit, input, change</td>
+    </tr>
+    <tr>
+        <td>Window</td>
+        <td>load, scroll, resize</td>
+    </tr>
+</table>
+
+<hr>
+
+<!-- SUMMARY -->
+<h2>🔹 Final DOM Revision Summary</h2>
+
+<pre>
+• DOM = bridge between HTML & JS
+• Select → Modify → Create → Remove → Listen
+• Prefer classList over inline styles
+• append() > appendChild()
+• Event delegation saves memory
+• Master traversal & events = DOM mastery
+</pre>
+
+</body>
+</html>
