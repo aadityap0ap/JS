@@ -12,3 +12,4 @@ function abc(el){
     console.log(el);
 }
 fruits.forEach(abc);
+console.log("end");
